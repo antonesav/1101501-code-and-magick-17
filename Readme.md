@@ -1,7 +1,7 @@
-# Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
+﻿# Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Антон Савельев](https://up.htmlacademy.ru/javascript/17/user/1101501).
-* Наставник: `Неизвестно`.
+* Наставник: `Константин Мамаев`.
 
 ---
 
