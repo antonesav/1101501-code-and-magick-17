@@ -5,6 +5,7 @@ hiddenBlockSetup.classList.remove('hidden');
 var similarListElement = hiddenBlockSetup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content.querySelector('.setup-similar-item');
+var WIZARD_COUNT = 4;
 
 var WIZARDS_NAMES = [
   'Иван',
@@ -43,7 +44,6 @@ var WIZARDS_EYES_COLORS = [
 ];
 
 var wizardsConfigures = [];
-var parametersWizard = {};
 
 // Генерация рандомного числа
 function getRandomIndex(someArray) {
@@ -52,22 +52,29 @@ function getRandomIndex(someArray) {
 
 // Генерация имён
 function concatWizardNames(arrName, arrSecondName) {
-  parametersWizard.name = arrName[getRandomIndex(arrName)] + ' ' + arrSecondName[getRandomIndex(arrSecondName)];
-  return parametersWizard.name;
+  return arrName[getRandomIndex(arrName)] + ' ' + arrSecondName[getRandomIndex(arrSecondName)];
 }
 
 // генерация цветов мантий
 function getMantleColor(arrMantleColors) {
-  parametersWizard.coatColor = arrMantleColors[getRandomIndex(arrMantleColors)];
-  return parametersWizard.coatColor;
+  return arrMantleColors[getRandomIndex(arrMantleColors)];
 }
 
 // генерация цветов глаз
 function getEyesColor(arrEyesColors) {
-  parametersWizard.eyesColor = arrEyesColors[getRandomIndex(arrEyesColors)];
-  return parametersWizard.eyesColor;
+  return arrEyesColors[getRandomIndex(arrEyesColors)];
 }
 
+// Формируем массив волшебников
+for (var i = 0; i < WIZARD_COUNT; i++) {
+  wizardsConfigures.push({
+    name: concatWizardNames(WIZARDS_NAMES, WIZARDS_SURNAMES),
+    coatColor: getMantleColor(WIZARDS_MANTLE_COLORS),
+    eyesColor: getEyesColor(WIZARDS_EYES_COLORS)
+  });
+}
+
+// Отрисовка волшебника
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -78,12 +85,9 @@ var renderWizard = function (wizard) {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < 4; i++) {
-  concatWizardNames(WIZARDS_NAMES, WIZARDS_SURNAMES);
-  getMantleColor(WIZARDS_MANTLE_COLORS);
-  getEyesColor(WIZARDS_EYES_COLORS);
-  wizardsConfigures.push(parametersWizard);
-  fragment.appendChild(renderWizard(wizardsConfigures[i]));
+// Отрисовка волшебников из массива
+for (var j = 0; j < wizardsConfigures.length; j++) {
+  fragment.appendChild(renderWizard(wizardsConfigures[j]));
 }
 
 similarListElement.appendChild(fragment);
