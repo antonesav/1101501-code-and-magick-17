@@ -42,30 +42,30 @@ var WIZARDS_EYES_COLORS = [
   'green'
 ];
 
-var wizardsConfigures = [
-  {}, {}, {}, {}
-];
+var wizardsConfigures = [];
+var parametersWizard = {};
+
+// Генерация рандомного числа
+function getRandomIndex(someArray) {
+  return Math.round(Math.random() * (someArray.length - 1));
+}
 
 // Генерация имён
-function concatWizardNames(arrName, arrSecondName, index) {
-  var randomIndexName = Math.round(Math.random() * (arrName.length - 1));
-  var randomIndexSecondName = Math.round(Math.random() * (arrSecondName.length - 1));
-  wizardsConfigures[index].name = arrName[randomIndexName] + ' ' + arrSecondName[randomIndexSecondName];
-  return wizardsConfigures[index].name;
+function concatWizardNames(arrName, arrSecondName) {
+  parametersWizard.name = arrName[getRandomIndex(arrName)] + ' ' + arrSecondName[getRandomIndex(arrSecondName)];
+  return parametersWizard.name;
 }
 
 // генерация цветов мантий
-function getMantleColor(arrMantleColors, index) {
-  var randomIndexMantleColor = Math.round(Math.random() * (arrMantleColors.length - 1));
-  wizardsConfigures[index].coatColor = arrMantleColors[randomIndexMantleColor];
-  return wizardsConfigures[index].coatColor;
+function getMantleColor(arrMantleColors) {
+  parametersWizard.coatColor = arrMantleColors[getRandomIndex(arrMantleColors)];
+  return parametersWizard.coatColor;
 }
 
 // генерация цветов глаз
-function getEyesColor(arrEyesColors, index) {
-  var randomIndexEyesColor = Math.round(Math.random() * arrEyesColors.length - 1);
-  wizardsConfigures[index].eyesColor = arrEyesColors[randomIndexEyesColor];
-  return wizardsConfigures[index].eyesColor;
+function getEyesColor(arrEyesColors) {
+  parametersWizard.eyesColor = arrEyesColors[getRandomIndex(arrEyesColors)];
+  return parametersWizard.eyesColor;
 }
 
 var renderWizard = function (wizard) {
@@ -79,9 +79,10 @@ var renderWizard = function (wizard) {
 var fragment = document.createDocumentFragment();
 
 for (var i = 0; i < 4; i++) {
-  concatWizardNames(WIZARDS_NAMES, WIZARDS_SURNAMES, i);
-  getMantleColor(WIZARDS_MANTLE_COLORS, i);
-  getEyesColor(WIZARDS_EYES_COLORS, i);
+  concatWizardNames(WIZARDS_NAMES, WIZARDS_SURNAMES);
+  getMantleColor(WIZARDS_MANTLE_COLORS);
+  getEyesColor(WIZARDS_EYES_COLORS);
+  wizardsConfigures.push(parametersWizard);
   fragment.appendChild(renderWizard(wizardsConfigures[i]));
 }
 
